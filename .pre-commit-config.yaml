@@ -11,6 +11,7 @@ repos:
         language: python
         language_version: python3
         require_serial: true
+        additional_dependencies: [setuptools]
         types: [gdscript]
       - id: gdformat
         name: gdformat
@@ -19,4 +20,5 @@ repos:
         language: python
         language_version: python3
         require_serial: true
+        additional_dependencies: [setuptools]
         types: [gdscript]
