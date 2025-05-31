@@ -6,19 +6,21 @@ repos:
     hooks:
       - id: gdlint
         name: gdlint
-        description: 'gdlint - linter for GDScript'
+        description: "gdlint - linter for GDScript"
         entry: gdlint
         language: python
         language_version: python3
         require_serial: true
         additional_dependencies: [setuptools]
         types: [gdscript]
+        files: "./src"
       - id: gdformat
         name: gdformat
-        description: 'gdformat - formatter for GDScript'
+        description: "gdformat - formatter for GDScript"
         entry: gdformat
         language: python
         language_version: python3
         require_serial: true
         additional_dependencies: [setuptools]
         types: [gdscript]
+        files: "./src"

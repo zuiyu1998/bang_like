@@ -21,7 +21,16 @@ extends Resource
 var current_value: float = 0.0
 
 # 属性更改器
-var _active_modifers: Array[SkillAttributeModifier] = []
+var _active_modifiers: Array[SkillAttributeModifier] = []
+
+# 设置基础值同时会触发当前值计算
+func set_base_value(value: float):
+	base_value = value
+	_recalculate()
+
+
+func get_active_modifiers() -> Array[SkillAttributeModifier]:
+	return _active_modifiers.duplicate()
 
 
 func _recalculate():
@@ -32,7 +41,7 @@ func _recalculate():
 	var current_modifiers: Array[SkillAttributeModifier] = []
 	var override_modifiers: Array[SkillAttributeModifier] = []
 
-	for modifier: SkillAttributeModifier in _active_modifers:
+	for modifier: SkillAttributeModifier in _active_modifiers:
 		match modifier.operation:
 			SkillAttributeModifier.MoiferOperation.MULTIPLY_BASE:
 				base_modifiers.append(modifier.duplicate())
@@ -67,9 +76,15 @@ func _recalculate():
 	return current_value != last_value
 
 
+func remove_modifier(modifier: SkillAttributeModifier):
+	if modifier in _active_modifiers:
+		_active_modifiers.erase(modifier)
+		_recalculate()
+
+
 # 添加更改器
 func add_modifier(modifier: SkillAttributeModifier):
-	if not modifier in _active_modifers:
-		_active_modifers.append(modifier)
+	if not modifier in _active_modifiers:
+		_active_modifiers.append(modifier)
 		_recalculate()
 		print_debug("[SkillAttribute] %s add_modifier %s" % [attribute_name, modifier.source_uid])
